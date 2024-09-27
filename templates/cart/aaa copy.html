@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<section class="bg-light">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                    {% for cart_item in cart_items %}
+                    <div class="row">
+                    <div class="col-lg-6 mt-2">
+                        <div class="card mb-3">
+                            <img class="card-img img-fluid" src="{{ cart_item.product.images.url }}" alt="Card image :D" id="product-detail">
+                            <figcaption class="info">
+                                <a href="{{ cart_item.product.get_url }}" class="title text-dark">{{ cart_item.product.Product_name }}</a>
+                                <p class="text-muted small">Marca: {{ cart_item.product.brand.brand_name }} </p>
+                            </figcaption>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mt-2">
+                        <div class="input-group input-spinner">
+                            <div class="input-group-prepend">
+                            <a href="{% url 'remove_cart' cart_item.product_id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+                            </div>
+                            <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
+                            <div class="input-group-append">
+                            <a href="{% url 'add_cart' cart_item.product_id %}"class="btn btn-light" type="button" id="button-minus"> <i class="fa fa-plus"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-2">
+                        <div class="price-wrap"> 
+                            <var class="price">$ {{ cart_item.subtotal }} </var> 
+                            <small class="text-muted"> {{ cart_item.product.price }} unidad </small> 
+                        </div> <!-- price-wrap .// -->
+                    <td class="text-right"> 
+                    <a href="{% url 'remove_cart_item' cart_item.product_id %}" class="btn btn-danger"> Eliminar</a>
+                    </div>
+                </div>
+{% endfor %}
+                </div>
+            </div>
+            </div>
+            <!-- col end -->
+            <div class="col-lg-4 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h2">{{ single_product.Product_name }}</h1>
+                        <h6>Total:</h6>
+                        <p class="h3 py-2">${{ total }}</p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>Marca:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{ single_product.brand.brand_name }}</strong></p>
+                            </li>
+                        </ul>
+
+                        <h6>Descripción:</h6>
+                        <p>{{ single_product.description }}</p>
+                        <hr>
+                    </div>
+                    h
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+{% endblock %}
